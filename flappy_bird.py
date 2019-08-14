@@ -142,6 +142,7 @@ class Pipe():
     """
     WIN_HEIGHT = WIN_HEIGHT
     WIN_WIDTH = WIN_WIDTH
+    # OG gap size is 200
     GAP = 200
     VEL = 5
 
@@ -423,6 +424,9 @@ def eval_genomes(genomes, config):
 
         if add_pipe:
             score += 1
+            for pipe in pipes:
+            	print ('asdfasdf')
+            	pipe.GAP -= 10
             # can add this line to give more reward for passing through a pipe (not required)
             '''for genome in ge:
                 genome.fitness += 5'''
@@ -470,7 +474,7 @@ def run(config_file):
     #p.add_reporter(neat.Checkpointer(5))
 
     # Run for up to 50 generations.
-    winner = p.run(eval_genomes, 1)
+    winner = p.run(eval_genomes, 50)
 
     # show final stats
     print('\nBest genome:\n{!s}'.format(winner))
