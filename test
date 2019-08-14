@@ -4,6 +4,6 @@ digraph {
 	"Top Pipe Y" [fillcolor=lightgray shape=box style=filled]
 	"Bottom Pipe Y" [fillcolor=lightgray shape=box style=filled]
 	Jump [fillcolor=lightblue style=filled]
-	"Bottom Pipe Y" -> Jump [color=red penwidth=0.23032781351896445 style=solid]
-	"Top Pipe Y" -> Jump [color=green penwidth=0.1646489608615685 style=solid]
+	"Top Pipe Y" -> Jump [color=green penwidth=0.6170886139181553 style=solid]
+	"Bottom Pipe Y" -> Jump [color=red penwidth=0.8110797840474692 style=solid]
 }

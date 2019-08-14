@@ -35,6 +35,10 @@ base_img = pygame.transform.scale2x(pygame.image.load(os.path.join("imgs","base.
 
 gen = 0
 
+def heightFun(value):
+	x = 50*(1/(1+.2*value))+160
+	return x
+
 class Bird:
     """
     Bird class representing the flappy bird
@@ -146,6 +150,7 @@ class Pipe():
 
     # OG gap size is 200
     GAP = 200
+    SCORE_COUNTER = 0
     VEL = 5
 
     def __init__(self, x):
@@ -381,7 +386,8 @@ def eval_genomes(genomes, config):
     while run and len(birds) > 0:
         # neil
 
-        clock.tick(300)
+
+        clock.tick(30)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -426,9 +432,11 @@ def eval_genomes(genomes, config):
 
         if add_pipe:
             score += 1
-            for pipe in pipes:
-            	print ('asdfasdf')
-            	Pipe.GAP -= 10
+
+            Pipe.SCORE_COUNTER += 2
+            Pipe.GAP = int(heightFun(Pipe.SCORE_COUNTER))
+            print ("Pipe score counter is " + str(Pipe.SCORE_COUNTER/2))
+            print ("Pipe gap is :" + str(Pipe.GAP))
             # can add this line to give more reward for passing through a pipe (not required)
             '''for genome in ge:
                 genome.fitness += 5'''
@@ -453,6 +461,8 @@ def eval_genomes(genomes, config):
         '''if score > 20:
             pickle.dump(nets[0],open("best.pickle", "wb"))
             break'''
+    Pipe.GAP = 200
+    Pipe.SCORE_COUNTER = 0
 
 
 
