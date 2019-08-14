@@ -36,7 +36,7 @@ base_img = pygame.transform.scale2x(pygame.image.load(os.path.join("imgs","base.
 gen = 0
 
 def heightFun(value):
-	x = 50*(1/(1+.2*value))+160
+	x = 50*(1/(1+.05*(value-1)))+150
 	return x
 
 class Bird:
@@ -183,6 +183,14 @@ class Pipe():
         self.height = random.randrange(50, 450)
         self.top = self.height - self.PIPE_TOP.get_height()
         self.bottom = self.height + self.GAP
+
+    def reset_height(self):
+    	"""
+    	when changing the gap size, want to change the associated top 
+    	and bottom
+    	"""
+    	self.top = self.height - self.PIPE_TOP.get_height()
+    	self.bottom = self.height + self.GAP
 
     def move(self):
         """
@@ -359,6 +367,7 @@ def eval_genomes(genomes, config):
     birds and sets their fitness based on the distance they
     reach in the game.
     """
+    print("inside eval_genomes")
     global WIN, gen
     win = WIN
     gen += 1
@@ -369,6 +378,7 @@ def eval_genomes(genomes, config):
     nets = []
     birds = []
     ge = []
+    #4
     for genome_id, genome in genomes:
         genome.fitness = 0  # start with fitness level of 0
         net = neat.nn.FeedForwardNetwork.create(genome, config)
@@ -406,7 +416,9 @@ def eval_genomes(genomes, config):
             bird.move()
 
             # send bird location, top pipe location and bottom pipe location and determine from network whether to jump or not
+            #4
             output = nets[birds.index(bird)].activate((bird.y, abs(bird.y - pipes[pipe_ind].height), abs(bird.y - pipes[pipe_ind].bottom)))
+         
 
             if output[0] > 0.5:  # we use a tanh activation function so result will be between -1 and 1. if over 0.5 jump
                 bird.jump()
@@ -438,8 +450,8 @@ def eval_genomes(genomes, config):
             print ("Pipe score counter is " + str(Pipe.SCORE_COUNTER/2))
             print ("Pipe gap is :" + str(Pipe.GAP))
             # can add this line to give more reward for passing through a pipe (not required)
-            '''for genome in ge:
-                genome.fitness += 5'''
+            for genome in ge:
+                genome.fitness += 5
             pipes.append(Pipe(WIN_WIDTH))
 
         for r in rem:
@@ -463,6 +475,7 @@ def eval_genomes(genomes, config):
             break'''
     Pipe.GAP = 200
     Pipe.SCORE_COUNTER = 0
+    Pipe.reset_height
 
 
 
@@ -486,10 +499,12 @@ def run(config_file):
     #p.add_reporter(neat.Checkpointer(5))
 
     # Run for up to 50 generations.
-    winner = p.run(eval_genomes, 50)
+    print("pre run (with coupled eval_genomes")
+    winner = p.run(eval_genomes, 150)
 
     # show final stats
     print('\nBest genome:\n{!s}'.format(winner))
+    #4
     node_names = {-1:'Bird Y', -2: 'Top Pipe Y', -3:"Bottom Pipe Y", 0:'Jump'}
     visualize.draw_net(config, winner, True, 'test',  node_names=node_names)
     print ('left draw_net')
