@@ -142,6 +142,8 @@ class Pipe():
     """
     WIN_HEIGHT = WIN_HEIGHT
     WIN_WIDTH = WIN_WIDTH
+
+
     # OG gap size is 200
     GAP = 200
     VEL = 5
@@ -426,7 +428,7 @@ def eval_genomes(genomes, config):
             score += 1
             for pipe in pipes:
             	print ('asdfasdf')
-            	pipe.GAP -= 10
+            	Pipe.GAP -= 10
             # can add this line to give more reward for passing through a pipe (not required)
             '''for genome in ge:
                 genome.fitness += 5'''

@@ -4,10 +4,6 @@ digraph {
 	"Top Pipe Y" [fillcolor=lightgray shape=box style=filled]
 	"Bottom Pipe Y" [fillcolor=lightgray shape=box style=filled]
 	Jump [fillcolor=lightblue style=filled]
-	48 [fillcolor=white style=filled]
-	"Bird Y" -> Jump [color=green penwidth=0.5209034423020591 style=solid]
-	"Top Pipe Y" -> Jump [color=green penwidth=0.38289086711569364 style=dotted]
-	"Bottom Pipe Y" -> Jump [color=red penwidth=0.58148863558611 style=solid]
-	"Top Pipe Y" -> 48 [color=green penwidth=0.4684438816290939 style=solid]
-	48 -> Jump [color=green penwidth=0.26142639473082174 style=solid]
+	"Bottom Pipe Y" -> Jump [color=red penwidth=0.23032781351896445 style=solid]
+	"Top Pipe Y" -> Jump [color=green penwidth=0.1646489608615685 style=solid]
 }
